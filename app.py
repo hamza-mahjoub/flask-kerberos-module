@@ -109,5 +109,5 @@ def test_add_file(path,*args, **kwargs):
   return render_template('contenu.html', contenu=contenu, user=user) 
 
 if __name__ == '__main__':
-	init_kerberos(app,service='host',hostname='service2.insat.tn')
+	init_kerberos(app,service='host',hostname='server.example.tn')
 	app.run(host='0.0.0.0',port=8080)
