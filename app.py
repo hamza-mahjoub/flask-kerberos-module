@@ -25,7 +25,7 @@ def home(user):
     for fname in fnames:
       filename = os.path.join(parent, fname)
       liste.append(filename)   
-  return render_template('machines.html', liste=liste, user=user)
+  return render_template('fichiers.html', liste=liste, user=user)
 
 
 @app.route('/<path:path>')
@@ -84,7 +84,7 @@ def test_home():
     for fname in fnames:
       filename = os.path.join(parent, fname)
       liste.append(filename)   
-  return render_template('machines.html', liste=liste, user=user)
+  return render_template('fichiers.html', liste=liste, user=user)
   
 @app.route('/test/<path:path>')
 def test_get_file(path,*args, **kwargs):
