@@ -5,7 +5,7 @@ import kerberos
 import sys
 
 try:
-	_, krb_context = kerberos.authGSSClientInit("host@service2.insat.tn")
+	_, krb_context = kerberos.authGSSClientInit("host@server.example.tn")
 	print("step : "+str(kerberos.authGSSClientStep(krb_context, "")))
 
 	print("Creating auth header......")
