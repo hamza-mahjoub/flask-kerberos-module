@@ -312,7 +312,6 @@ su testUser                   # login as the test user
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Acknowledgments
-A list of resources which are helpful and would like to give credit to.
+A list of resources which are helpful and would like to give credit to:
 * [Flask kerberos](https://flask-kerberos.readthedocs.io/en/latest/)
 * [Python kerberos module](http://python-notes.curiousefficiency.org/en/latest/python_kerberos.html)
-* 
