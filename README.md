@@ -251,7 +251,9 @@ export KRB5_KTNAME=/etc/krb5.keytab
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-run the main app script: `./app.py` and everything should look normal.
+before running the main 
+
+app script: `./app.py` and everything should look normal.
 ```bash
 ```
 <p align="right">(<a href="#top">back to top</a>)</p>
