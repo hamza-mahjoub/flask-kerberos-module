@@ -164,7 +164,7 @@ krb5_newrealm
 
 4.3 we will create an _admin principal_ , a _host principal_ and generate its keytab:
 - **principal:** a unique identity to which Kerberos can assign tickets.
-- **keytb:** stores long-term keys for one or more principals and allow server applications to accept authentications from clients, but can also be used to obtain initial credentials for client applications.
+- **keytab:** stores long-term keys for one or more principals and allow server applications to accept authentications from clients, but can also be used to obtain initial credentials for client applications.
 ```bash
 kadmin.local                              # login as local admin
 addprinc root/admin                       # add admin principal
