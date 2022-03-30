@@ -25,7 +25,7 @@ def home(user):
     for fname in fnames:
       filename = os.path.join(parent, fname)
       liste.append(filename)   
-  return render_template('fichiers.html', liste=liste, user=user)
+  return render_template('files.html', liste=liste, user=user)
 
 
 @app.route('/<path:path>')
@@ -35,7 +35,7 @@ def get_file(user,path,*args, **kwargs):
   with open(path) as f:
     for line in f:
       contenu.append(line)
-  return render_template('contenu.html', contenu=contenu, user=user) 
+  return render_template('content.html', contenu=contenu, user=user) 
 
 @app.route('/addline/<path:path>',methods=['POST'])
 @requires_authentication
@@ -49,7 +49,7 @@ def add_line(user,path,*args, **kwargs):
   for obj in data:
      f.write(obj['message']+'\n')
      contenu.append(obj['message']+'\n')
-  return render_template('contenu.html', contenu=contenu, user=user) 
+  return render_template('content.html', contenu=contenu, user=user) 
  
 @app.route('/deleteline/<path:path>',methods=['POST'])
 @requires_authentication
@@ -73,7 +73,7 @@ def delete_line(user,path,*args, **kwargs):
   with open(path,"r") as f:
     for line in f:
       contenu.append(line)
-  return render_template('contenu.html', contenu=contenu, user=user) 
+  return render_template('content.html', contenu=contenu, user=user) 
 
 @app.route('/test/home')
 def test_home():
@@ -84,7 +84,7 @@ def test_home():
     for fname in fnames:
       filename = os.path.join(parent, fname)
       liste.append(filename)   
-  return render_template('fichiers.html', liste=liste, user=user)
+  return render_template('files.html', liste=liste, user=user)
   
 @app.route('/test/<path:path>')
 def test_get_file(path,*args, **kwargs):
@@ -93,7 +93,7 @@ def test_get_file(path,*args, **kwargs):
   with open(path) as f:
     for line in f:
       contenu.append(line)
-  return render_template('contenu.html', contenu=contenu, user=user) 
+  return render_template('content.html', contenu=contenu, user=user) 
 
 if __name__ == '__main__':
 	init_kerberos(app,service='host',hostname='server.example.tn')
