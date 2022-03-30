@@ -131,7 +131,6 @@ then edit the `/etc/ntp.conf` and add the lines below under the `# Use Ubuntu's 
 server 192.168.56.110
 server obelix
 ```
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 3.3. Synchronize time by running the below command on the server machine:
 ```bash
