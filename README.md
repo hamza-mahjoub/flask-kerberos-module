@@ -207,6 +207,19 @@ addprinc testUser
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Flask Configuration
+
+We install flask On the **server** machine by running: 
+```ssh
+pip install Flask
+```
+Then we need to install the **Flask_kerberos** module by running:
+```ssh
+pip install Flask-Kerberos
+```
+> If an error occured run `apt install libkrb5-dev` then restart the Flask_kerberos module.
+> If it still persists, check your gcc installation.
+
+
 ### Installation
 
 
