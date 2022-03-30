@@ -41,9 +41,9 @@ This repository contains implemented solution for **kerberos authentification** 
 
 ### What is Kerberos
 Kerberos is an AAA authentication protocol from the Massachusetts Institute of Technology (MIT) ”Athena” project. it is responsible for **authenticating, authorizing,
-and monitoring users** who want to access _resources and services_ on your network thus the correspondance with the three-headed dog guardian of the gates of Hades in the greek mythology.
+and monitoring users** who want to access _resources and services_ on your network thus the correspondance with the three-headed dog guardian of the gates of Hades in the greek mythology.<br>
 kerberos introduces the principle of **Single Sign-On (SSO)**. Thus with a single authentication, the user will have access to all the services of the network.
-it relies on a trusted third party to manage authentication, the **KDC (Key Distribution Center)**. All users and services on the network trust this third party.
+it relies on a trusted third party to manage authentication, the **KDC (Key Distribution Center)**. All users and services on the network trust this third party.<br>
 Kerberos uses a ticket system to perform authentication and introduces **the principle of SSO (Single Sign On)**. The user authenticates on the KDC and then uses a ticket to authenticate on each requested service. ( no password sending via network).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -251,25 +251,7 @@ export KRB5_KTNAME=/etc/krb5.keytab
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-before running the main 
+run the main app script by the command `./app.py` as **root**.
 
-app script: `./app.py` and everything should look normal.
-```bash
-```
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-## Roadmap
-
-- ✅ [Morgan middleware](https://www.npmjs.com/package/morgan)
-- ✅ Setting up Configuration **.env** .
-- ✅ Setting up **MongoDB** Database.
-- 🔲 User Module
-    - 🔲 User model.
-    - 🔲 CRUD **(Create,Read,Update,Delete)**
-- 🔲 [Swagger](https://swagger.io/).
-- 🔲 Authentification Module.
-- 🔲 Mailing Service.
-- 🔲 RBAC **(Role Based Access Control)**
-  
 <p align="right">(<a href="#top">back to top</a>)</p>
 
