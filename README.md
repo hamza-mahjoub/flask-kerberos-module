@@ -23,7 +23,14 @@
         </li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#routes">Routes</a></li>
+        <li><a href="#scripts">Scripts</a></li>
+        <li><a href="#kerberos_scenario">Kerbero scenario</a></li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
   </ol>
 </details>
@@ -242,7 +249,7 @@ export KRB5_KTNAME=/etc/krb5.keytab
 >```
 
 4. Turn all scripts executable by running `chmod 755 script_name.py`.
-> There are 5 scripts: app.py, check_route.py, negotiate.py, addline.py, delete_line.py.
+> There are 5 scripts: app.py, check_route.py, negotiate.py, add_line.py, delete_line.py.
 
 
 
@@ -251,7 +258,35 @@ export KRB5_KTNAME=/etc/krb5.keytab
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-run the main app script by the command `./app.py` as **root**.
+run the main app script by the command `./app.py` as **root** and you should see in the terminal that the server is running.
+```sh
+# some informations
+running on http://127.0.0.1:8080
+```
 
+### Routes
+The routes of the flask api.
+ |       Route             |   protected      |    description                                                    | 
+ |    :---                 |     :---:        |     :---                                                          |
+ | /                       |       ✖️         | return a description about the project                            |
+ | /home                   |       ✔️         | return the list of files under the `files` directory              |
+ | /<path:path>            |       ✔️         | return the content of the selected file                           |
+ | /addline.py>            |       ✔️         | add any number or lines to a selected file                        |
+ | /deleteline/<path:path> |       ✔️         | delete a line from a selected file                                |
+ | /test/home              |       ✖️         | same as `/home` but with no protection                            |
+ | /test/<path:path>       |       ✖️         | same as `/<path:path>`  but with no protection                    |
+
+>The `/test` routes are for visualization on **firefox**
+
+### Scripts
+They help creating **requests** to the routes without needing a front end. They are based on the python _requests module_.
+ |       Script            |    parameters                                        |    description                                                    | 
+ |    :---                 |     :---:                                            |     :---                                                          |
+ | check_route.py          | route_name `(ex: home)`                              | check if a route is not protected. if not return the response     |
+ | negotiate.py            | route_name `(ex: home)`                              | uses kerberos ticket to access a route and return response or return error |
+ | add_line.py             | file_path list_lines `(ex: files/file1.txt hallo)`   | add a line to a file, kerberos ticket must exists             |
+ | delete_line.py          | file_path line_number `(ex: files/file1.txt 2)`      | delete a line from a file, kerberos ticket must exists                        |
+
+### Kerberos scenario
 <p align="right">(<a href="#top">back to top</a>)</p>
 
