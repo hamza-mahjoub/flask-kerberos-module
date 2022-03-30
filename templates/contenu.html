@@ -1,0 +1,12 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>You are logged as {{ user }} </h1>
+    <h1>Contenu du fichier</h1>
+        {% for row in contenu %}
+           <p style="padding-left:20px">- {{ row }}</p>
+        {% endfor %}
+  </body>
+</html>
+
