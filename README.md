@@ -31,7 +31,7 @@
         <li><a href="#kerberos_scenario">Kerbero scenario</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#Acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -280,13 +280,40 @@ The routes of the flask api.
 
 ### Scripts
 They help creating **requests** to the routes without needing a front end. They are based on the python _requests module_.
- |       Script            |    parameters                                        |    description                                                    | 
- |    :---                 |     :---:                                            |     :---                                                          |
- | check_route.py          | route_name `(ex: home)`                              | check if a route is not protected. if not return the response     |
- | negotiate.py            | route_name `(ex: home)`                              | uses kerberos ticket to access a route and return response or return error |
- | add_line.py             | file_path list_lines `(ex: files/file1.txt hallo)`   | add a line to a file, kerberos ticket must exists             |
- | delete_line.py          | file_path line_number `(ex: files/file1.txt 2)`      | delete a line from a file, kerberos ticket must exists                        |
+ |       Script            |    parameters                                          |    description                                                    | 
+ |    :---                 |     :---:                                              |     :---                                                          |
+ | check_route.py          | route_name `(ex: home)`                                | check if a route is protected. if not return the response     |
+ | negotiate.py            | route_name `(ex: home)`                                | uses kerberos ticket to access a route and return response or return error |
+ | add_line.py             | file_path list_lines `(ex: files/file1.txt hallo)`     | add a line to a file, kerberos ticket must exists             |
+ | delete_line.py          | file_path line_number `(ex: files/file1.txt 2)`        | delete a line from a file (start = 0), kerberos ticket must exists                |
 
 ### Kerberos scenario
+```sh
+su testUser                   # login as the test user
+./check_route /               # return response content and status code 200.
+./check_route home            # return status code 401 : unauthorized and it asks for negotiation.
+./negotiate.py home           # return a kerberos.GSSErro because it can't find kerberos credentials.
+```
+* We must generate a ticket so we use the command `kinit`.
+> To verify the ticket we can run `klist`. It shows that it is of type **krbtgt/..** (kerberos ticket granting ticket).
+* **TGT:** a user authentication token issued by the Key Distribution Center (KDC) that is used to request access tokens from the Ticket Granting Service (TGS) for specific resources/systems joined to the domain.
+> To destroy the ticket we can run `kdestroy`.
+* Now we try to negotiate
+```sh
+./negotiate.py home           # return response content (list of files) and status code 200.
+```
+> When we run `klist`. It shows that a **TGS** is created (kerberos ticket granting service).
+* **TGS:** provides tickets and Ticket Granting Tickets to the client systems. Ticket Granting Tickets contain the client ID, the client network address, the ticket validity period, and the Ticket Granting Server session key which is used to access service without password exchanging.
+```sh
+./negotiate.py files/file1.txt                 # return content of file1 and status code 200.
+./add_line.py files/file1.txt hallo there     # add two lines "hallo" and "there" to file1.txt.
+./delete_line.py files/file1.txt 2            # delete the line of index 2 from file1.
+```
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Acknowledgments
+A list of resources which are helpful and would like to give credit to.
+* [Flask kerberos](https://flask-kerberos.readthedocs.io/en/latest/)
+* [Python kerberos module](http://python-notes.curiousefficiency.org/en/latest/python_kerberos.html)
+* 
