@@ -24,7 +24,7 @@ def home(user):
   for parent, dnames, fnames in os.walk("files/"):
     for fname in fnames:
       filename = os.path.join(parent, fname)
-      liste.append(filename)   
+      list.append(filename)   
   return render_template('files.html', list=list, user=user)
 
 
@@ -48,7 +48,7 @@ def add_line(user,path,*args, **kwargs):
      content.append(line)
   for obj in data:
      f.write(obj['message']+'\n')
-     contenu.append(obj['message']+'\n')
+     content.append(obj['message']+'\n')
   return render_template('content.html', content=content, user=user) 
  
 @app.route('/deleteline/<path:path>',methods=['POST'])
