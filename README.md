@@ -154,6 +154,7 @@ During installation you will be prompted to enter the _realm_, _kerberos server_
  | Administrative Service  | kdc.example.tn   |
 >Its capital sensitive.<br>
 >View kdc settings with `cat /etc/krb5kdc/kdc.conf`.
+>The error **failed to start kerberos 5 ..** will not be a problem.
 
 4.2 Now we need to add **kerberos database** where principals will be stored
 ```bash
