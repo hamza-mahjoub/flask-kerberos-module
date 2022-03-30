@@ -16,7 +16,7 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#Configuration">Configuration</a></li>
+        <li><a href="#Kerberos-Configuration">Kerberos Configuration</a></li>
         <li>
            <a href="#installation">Installation</a>
         </li>
@@ -55,20 +55,45 @@ In order to run this project, we need to follow some few steps :
 
 * Make sure that you have a virtualization software.In this demo i used **Oracle VM VirtualBox** ( [Download Here](https://www.virtualbox.org/wiki/Downloads)).
 * Make sure you have 2 linux machines with the **Ubuntu 20.04 LTS distribution**  ( [Download Here](https://ubuntu.com/download/desktop)).
-* Make sure you have **python3** and **pip** on the service machine.
+* Make sure you have **python3** and **pip** on the server machine.
 ```ssh
   sudo apt update
   sudo apt install python3
   sudo apt install python3-pip
 ``` 
- | Machine Name | Machine Ip  | Sub-domain name |
- | :---:         |     :---:      |          :---: |
- | git status   | git status     | git status    |
- | git diff     | git diff       | git diff      |
 
-### Configuration
 
-#### Configure-kerberos
+### Kerberos Configuration
+
+#### 1. Environnement
+
+In order to proceed with the configurations we need to have a : 
+- Domain name : "example.tn"
+- Realm : "EXAMPLE.TN"
+- Two machines : 
+
+ | Machine Name     |   Machine IP   | Sub-domain name    |
+ |    :---:         |     :---:      |    :---:           |
+ | KDC              | 192.168.56.110 | kdc.example.tn     |
+ | server           | 192.168.56.111 | server.example.tn  |
+ > machines IP's are just an example, use `hostname -I` to get each machine ip. <br>
+ > All the configurations must be done in **admin** mode, use `su -` to connect as admin.
+
+#### 2. DNS (Domain name system)
+Used to match domain name to their IP's.
+```ssh
+nano /etc/hosts
+```
+and add _(for each machine)_ : 
+```ssh
+192.168.56.110    kdc.example.tn       kdc
+192.168.56.111    server.example.tn    server
+```
+then set the **hostname**  _(for each machine)_ :
+ | Machine Name     |            set new hostname                   | 
+ |    :---:         |              :---:                            |
+ | KDC              | `hostnamectl set-hostname kdc.example.tn `    |
+ | server           | `hostnamectl set-hostname server.example.tn`  |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
