@@ -17,6 +17,7 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#Kerberos-Configuration">Kerberos Configuration</a></li>
+        <li><a href="#Flask-Configuration">Flask Configuration</a></li>
         <li>
            <a href="#installation">Installation</a>
         </li>
@@ -78,6 +79,8 @@ In order to proceed with the configurations we need to have a :
  | server           | 192.168.56.111 | server.example.tn  |
  > machines IP's are just an example, use `hostname -I` to get each machine ip. <br>
  > All the configurations must be done in **admin** mode, use `su -` to connect as admin.
+ 
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 #### 2. DNS (Domain name system)
 Used to match domain name to their IP's.
@@ -97,6 +100,113 @@ then set the **hostname**  _(for each machine)_ :
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+#### 3. Time Synchronization
+When the client obtains a ticket from Kerberos, it includes in its message the current time of day. One of the three parts of the response from Kerberos is a timestamp issued by the Kerberos server.
+
+3.1. on the **_KDC_** install **ntp**:
+```ssh
+apt install ntp
+```
+then edit the `/etc/ntp.conf` and add the lines below under the `# local users may interrogate the ntp server more closely` section: 
+```ssh
+restrict 192.168.56.110 mask 255.255.255.0
+nomodify notrap
+server 127.127.1.0 stratum 10
+listen on *
+```
+3.2. on the **_server_** install **ntp** and **ntpdate**:
+```ssh
+apt install ntp
+apt install ntpdate
+```
+then edit the `/etc/ntp.conf` and add the lines below under the `# Use Ubuntu's ntp server as a fallback` section: 
+```ssh
+server 192.168.56.110
+server obelix
+```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+3.3. Synchronize time by running the below command on the server machine:
+```ssh
+ntpdate -dv 192.168.56.110
+```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+#### 4. Configure KDC
+4.1. We need to install **the packages** _krb5-kdc_, _krb5-admin-server_ and _krb5-config_ by running : 
+```ssh
+apt install krb5-kdc krb5-admin-server krb5-config
+```
+During installation you will be prompted to enter the _realm_, _kerberos server_ and _administartive server_ and it would be in order:
+ | Prompt                  |    value         | 
+ |    :---:                |     :---:        |
+ | Realm                   | EXAMPLE.TN       |
+ | Kerberos servers        | kdc.example.tn   |
+ | Administrative Service  | kdc.example.tn   |
+>Its capital sensitive.<br>
+>View kdc settings with `cat /etc/krb5kdc/kdc.conf`.
+
+4.2 Now we need to add **kerberos database** where principals will be stored
+```ssh
+krb5_newrealm
+```
+> You will be prompted to choose a password.
+
+4.3 we will create an _admin principal_ , a _host principal_ and generate its keytab:
+- **principal:** a unique identity to which Kerberos can assign tickets.
+- **keytb:** stores long-term keys for one or more principals and allow server applications to accept authentications from clients, but can also be used to obtain initial credentials for client applications.
+```ssh
+kadmin.local                              # login as local admin
+addprinc root/admin                       # add admin principal
+addprinc -randkey host/kdc.example.tn     # add host principal
+ktadd host/kdc.example.tn                 # generate host principal keytab
+```
+> type `q` to exit.
+
+4.3 Grant the **admin principal** all privileges by editing `/etc/krb5kdc/kadm5.acl`:
+```ssh
+root/admin *                              # just uncomment the line
+```
+4.4 restart the kerberos service by running: 
+```ssh
+systemctl restart krb5-admin-server
+systemctl status krb5-admin-server        # to check service status
+```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+#### 5. Configure Server
+5.1. We need to install **the packages** _krb5-user_, _libpam-krb5_ and _libpam-ccreds_ by running: 
+```ssh
+apt install krb5-user libpam-krb5 libpam-ccreds
+```
+During installation you will be prompted to enter the _realm_, _kerberos server_ and _administartive server_ and it would be in order:
+ | Prompt                  |    value         | 
+ |    :---:                |     :---:        |
+ | Realm                   | EXAMPLE.TN       |
+ | Kerberos servers        | kdc.example.tn   |
+ | Administrative Service  | kdc.example.tn   |
+>Its capital sensitive.<br>
+>View kdc settings with `cat /etc/krb5kdc/kdc.conf`.
+
+5.2 we will create a _host principal_ and generate its keytab:
+```ssh
+kadmin                                       # login as admin (type your password)
+addprinc -randkey host/server.example.tn     # add host principal
+ktadd host/server.example.tn                 # generate host principal keytab
+```
+> type `q` to exit.
+
+5.3 Add a test user and create a correspending principal:
+```ssh
+useradd -m -s /bin/bash testUser
+kadmin
+addprinc testUser
+```
+> type `q` to exit.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Flask Configuration
 ### Installation
 
 
