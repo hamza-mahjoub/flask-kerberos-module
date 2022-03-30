@@ -3,9 +3,9 @@
     </head>
     <body>
     	<h1>You are logged as {{ user }} </h1>
-        <h1>Liste des fichiers</h1>
-               <p>Fichiers : </p>
-               {% for row in liste %}
+        <h1>Files list</h1>
+               <p>Files : </p>
+               {% for row in list %}
                      <p style="padding-left:20px">- {{ row }}</p> 
                      <a href="{{ row }}">{{ row }}</a> 
                {% endfor %}
