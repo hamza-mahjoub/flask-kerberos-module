@@ -165,6 +165,7 @@ krb5_newrealm
 4.3 we will create an _admin principal_ , a _host principal_ and generate its keytab:
 - **principal:** a unique identity to which Kerberos can assign tickets.
 - **keytab:** stores long-term keys for one or more principals and allow server applications to accept authentications from clients, but can also be used to obtain initial credentials for client applications.
+run the following commands:
 ```bash
 kadmin.local                              # login as local admin
 addprinc root/admin                       # add admin principal
@@ -198,7 +199,7 @@ During installation you will be prompted to enter the _realm_, _kerberos server_
 >Its capital sensitive.<br>
 >View kdc settings with `cat /etc/krb5kdc/kdc.conf`.
 
-5.2 we will create a _host principal_ and generate its keytab:
+5.2 we will create a _host principal_ and generate its keytab by running:
 ```bash
 kadmin                                       # login as admin (type your password)
 addprinc -randkey host/server.example.tn     # add host principal
@@ -206,7 +207,7 @@ ktadd host/server.example.tn                 # generate host principal keytab
 ```
 > type `q` to exit.
 
-5.3 Add a test user and create a correspending principal:
+5.3 Add a test user and create a correspending principal by running:
 ```bash
 useradd -m -s /bin/bash testUser
 kadmin
@@ -291,6 +292,7 @@ They help creating **requests** to the routes without needing a front end. They 
  | delete_line.py          | file_path line_number `(ex: files/file1.txt 2)`        | delete a line from a file (start = 0), kerberos ticket must exists                |
 
 ### Kerberos scenario
+test a scenario by running the following commands:
 ```sh
 su testUser                   # login as the test user
 ./check_route /               # return response content and status code 200.
@@ -307,6 +309,7 @@ su testUser                   # login as the test user
 ```
 > When we run `klist`. It shows that a **TGS** is created (kerberos ticket granting service).
 * **TGS:** provides tickets and Ticket Granting Tickets to the client systems. Ticket Granting Tickets contain the client ID, the client network address, the ticket validity period, and the Ticket Granting Server session key which is used to access service without password exchanging.
+let try adding lines and deleting them by running these commands:
 ```sh
 ./negotiate.py files/file1.txt                 # return content of file1 and status code 200.
 ./add_line.py files/file1.txt hallo there     # add two lines "hallo" and "there" to file1.txt.
