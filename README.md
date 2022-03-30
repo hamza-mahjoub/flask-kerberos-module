@@ -116,6 +116,8 @@ apt install ntp
 ```
 then edit the `/etc/ntp.conf` and add the lines below under the `# local users may interrogate the ntp server more closely` section: 
 ```bash
+restrict 127.0.0.1
+restrict ::1
 restrict 192.168.56.110 mask 255.255.255.0
 nomodify notrap
 server 127.127.1.0 stratum 10
@@ -128,6 +130,7 @@ apt install ntpdate
 ```
 then edit the `/etc/ntp.conf` and add the lines below under the `# Use Ubuntu's ntp server as a fallback` section: 
 ```bash
+pool ntp.ubuntu.com
 server 192.168.56.110
 server obelix
 ```
