@@ -153,7 +153,7 @@ During installation you will be prompted to enter the _realm_, _kerberos server_
  | Kerberos servers        | kdc.example.tn   |
  | Administrative Service  | kdc.example.tn   |
 >Its capital sensitive.<br>
->View kdc settings with `cat /etc/krb5kdc/kdc.conf`.
+>View kdc settings with `cat /etc/krb5kdc/kdc.conf`.<br>
 >The error **failed to start kerberos 5 ..** will not be a problem.
 
 4.2 Now we need to add **kerberos database** where principals will be stored
@@ -197,7 +197,7 @@ During installation you will be prompted to enter the _realm_, _kerberos server_
  | Kerberos servers        | kdc.example.tn   |
  | Administrative Service  | kdc.example.tn   |
 >Its capital sensitive.<br>
->View kdc settings with `cat /etc/krb5kdc/kdc.conf`.
+>View krb settings with `cat /etc/krb5.conf`.
 
 5.2 we will create a _host principal_ and generate its keytab by running:
 ```bash
