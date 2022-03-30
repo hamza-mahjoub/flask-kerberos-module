@@ -94,19 +94,6 @@ def test_get_file(path,*args, **kwargs):
     for line in f:
       contenu.append(line)
   return render_template('contenu.html', contenu=contenu, user=user) 
-  
-@app.route('/test/add/<path:path>',methods=['POST'])
-def test_add_file(path,*args, **kwargs):
-  user = "hamza"
-  data = request.json
-  contenu = []
-  f = open(path,"r+")
-  for line in f:
-     contenu.append(line)
-  for obj in data:
-     f.write(obj['message']+'\n')
-     contenu.append(obj['message']+'\n')
-  return render_template('contenu.html', contenu=contenu, user=user) 
 
 if __name__ == '__main__':
 	init_kerberos(app,service='host',hostname='server.example.tn')
