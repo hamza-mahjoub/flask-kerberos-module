@@ -209,11 +209,11 @@ addprinc testUser
 ### Flask Configuration
 
 We install flask nn the **server** machine by running: 
-```bash
+```python
 pip install Flask
 ```
 Then we need to install the **Flask_kerberos** module by running:
-```ssh
+```python
 pip install Flask-Kerberos
 ```
 > If an error occured run `apt install libkrb5-dev` then restart the Flask_kerberos module.<br>
@@ -224,7 +224,7 @@ pip install Flask-Kerberos
 ### Installation
 
 1. Clone the repo
-   ```bash
+   ```console
    git clone https://github.com/hamza-mahjoub/flask-kerberos-module.git.
    ```
 2. Login as root by running `su -`.
