@@ -3,8 +3,8 @@
     </head>
     <body>
     	<h1>You are logged as {{ user }} </h1>
-        <h1>Liste des machines</h1>
-               <p>Machine : </p>
+        <h1>Liste des fichiers</h1>
+               <p>Fichiers : </p>
                {% for row in liste %}
                      <p style="padding-left:20px">- {{ row }}</p> 
                      <a href="{{ row }}">{{ row }}</a> 
