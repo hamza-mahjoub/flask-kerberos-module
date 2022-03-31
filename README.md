@@ -234,7 +234,7 @@ pip install Flask-Kerberos
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo in the server
    ```console
    git clone https://github.com/hamza-mahjoub/flask-kerberos-module.git.
    ```
@@ -294,7 +294,7 @@ They help creating **requests** to the routes without needing a front end. They 
 ### Kerberos scenario
 test a scenario by running the following commands:
 ```sh
-su testUser                   # login as the test user
+su testUser                   # login as the test user (use another shell then the one where the app is running)
 ./check_route /               # return response content and status code 200.
 ./check_route home            # return status code 401 : unauthorized and it asks for negotiation.
 ./negotiate.py home           # return a kerberos.GSSErro because it can't find kerberos credentials.
