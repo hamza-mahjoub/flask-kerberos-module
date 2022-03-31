@@ -230,6 +230,10 @@ pip install Flask-Kerberos
 > If an error occured run `apt install libkrb5-dev` then restart the Flask_kerberos module.<br>
 > If it still persists, check your gcc installation.
 
+Then we need to install the **Flask_bootstrap** module by running:
+```python
+pip install flask_bootstrap
+```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Installation
@@ -261,7 +265,14 @@ export KRB5_KTNAME=/etc/krb5.keytab
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
+Before running the main app script you need to change hostname in each script to the one you chose
+ |       Script            |    line                           |   
+ |    :---                 |     :---:                         |   
+ | app.py                  |  99                               | 
+ | negotiate.py            |  8                                | 
+ | add_line.py             |  8                                |
+ | delete_line.py          |  8                                |
+ 
 run the main app script by the command `./app.py` as **root** and you should see in the terminal that the server is running.
 ```sh
 # some informations
@@ -289,7 +300,7 @@ They help creating **requests** to the routes without needing a front end. They 
  | check_route.py          | route_name `(ex: home)`                                | check if a route is protected. if not return the response     |
  | negotiate.py            | route_name `(ex: home)`                                | uses kerberos ticket to access a route and return response or return error |
  | add_line.py             | file_path list_lines `(ex: files/file1.txt hallo)`     | add a line to a file, kerberos ticket must exists             |
- | delete_line.py          | file_path line_number `(ex: files/file1.txt 2)`        | delete a line from a file (start = 0), kerberos ticket must exists                |
+ | delete_line.py          | file_path line_number `(ex: files/file1.txt 2)`        | delete a line from a file (start = 0), kerberos ticket must exists              |
 
 ### Kerberos scenario
 test a scenario by running the following commands:
