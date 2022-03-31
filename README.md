@@ -285,9 +285,9 @@ The routes of the flask api.
  |    :---                 |     :---:        |     :---                                                          |
  | /                       |       ✖️         | return a description about the project                            |
  | /home                   |       ✔️         | return the list of files under the `files` directory              |
- | /<path:path>            |       ✔️         | return the content of the selected file                           |
- | /addline.py>            |       ✔️         | add any number or lines to a selected file                        |
- | /deleteline/<path:path> |       ✔️         | delete a line from a selected file                                |
+ | /path/path              |       ✔️         | return the content of the selected file                           |
+ | /addline.py             |       ✔️         | add any number or lines to a selected file                        |
+ | /deleteline/path/path   |       ✔️         | delete a line from a selected file                                |
  | /test/home              |       ✖️         | same as `/home` but with no protection                            |
  | /test/<path:path>       |       ✖️         | same as `/<path:path>`  but with no protection                    |
 
@@ -300,7 +300,7 @@ They help creating **requests** to the routes without needing a front end. They 
  | check_route.py          | route_name `(ex: home)`                                | check if a route is protected. if not return the response     |
  | negotiate.py            | route_name `(ex: home)`                                | uses kerberos ticket to access a route and return response or return error |
  | add_line.py             | file_path list_lines `(ex: files/file1.txt hallo)`     | add a line to a file, kerberos ticket must exists             |
- | delete_line.py          | file_path line_number `(ex: files/file1.txt 2)`        | delete a line from a file (start = 0), kerberos ticket must exists              |
+ | delete_line.py          | file_path line_number `(ex: files/file2.txt 2)`        | delete a line from a file (start = 0), kerberos ticket must exists              |
 
 ### Kerberos scenario
 test a scenario by running the following commands:
